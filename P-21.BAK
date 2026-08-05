@@ -1,0 +1,22 @@
+#include<conio.h>
+#include<iostream.h>
+int sum(int a,const int b);
+void main()
+{
+  int a,b,c;
+  clrscr();
+  cout<<"Enter two number:";
+  cin>>a>>b;
+  c=sum(a,b);
+  cout<<"\nSum="<<c;
+  getch();
+}
+int sum(int a,const b)
+{
+   int c;
+   a++;
+   //b++;
+   c=a+b;
+   return c;
+}
+

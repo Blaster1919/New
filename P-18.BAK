@@ -1,0 +1,12 @@
+#include<conio.h>
+#include<iostream.h>
+void main()
+{
+  int a,b;
+  clrscr();
+  cout<<"Enter two numbers:";
+  cin>>a>>b;
+  cout<<"\nSum="<<add(a,b);
+  getch();
+}
+

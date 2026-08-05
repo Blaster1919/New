@@ -1,0 +1,31 @@
+#include<conio.h>
+#include<iostream.h>
+void main()
+{
+  int cnum,min,max;
+  clrscr();
+  cout<<"Enter -999 to stop loop";
+  cout<<"\nEnter a number:";
+  cin>>cnum;
+  if(cnum==-999)
+  {
+    cout<<"No number entered before stop loop";
+  }
+  min=cnum;
+  max=cnum;
+  while(1)
+  {
+     cout<<"Enter a number:";
+     cin>>cnum;
+
+     if(cnum==-999)
+	 break;
+     if(cnum>max)
+	max=cnum;
+     if(cnum<min)
+	min=cnum;
+  }
+  cout<<"\nMinimum number:"<<min<<endl;
+  cout<<"Maximum number:"<<max<<endl;
+   getch();
+}

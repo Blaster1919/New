@@ -1,0 +1,29 @@
+#include<conio.h>
+#include<iostream.h>
+void main()
+{
+   int num,sq,temp,flag;
+   clrscr();
+   cout<<"Enter a number:";
+   cin>>num;
+   sq=num*num;
+   temp=num;
+   flag=0;
+   while(temp>0)
+   {
+       if(temp%10 !=sq%10)
+       {
+	 flag=1;
+	 break;
+       }
+       temp/=10;
+       sq/=10;
+   }
+   if(flag==0)
+   {
+     cout<<num<<" Is murphy number"<<endl;
+   }
+   else
+     cout<<num<<" Is not murphy number"<<endl;
+   getch();
+}
