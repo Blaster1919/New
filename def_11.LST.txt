@@ -1,0 +1,232 @@
+ 1. CREATE COURSE_MASTER TABLE--
+> 
+SQL> CREATE TABLE Course_master (    C_code INT PRIMARY KEY,    c_name VARCHAR(50));
+
+Table created.
+
+SQL>  2. CREATE STUDENT_MASTER TABLE---
+> 
+
+SQL> CREATE TABLE Student_Master (    Sno INT PRIMARY KEY,    sname VARCHAR(50),    c_code INT,    city VARCHAR(50),    age INT,    FOREIGN KEY (c_code) REFERENCES Course_master(C_code));
+
+Table created.
+
+SQL>  3. CREATE FEE_MASTER TABLE
+
+SQL> CREATE TABLE Fee_Master (    Sno INT,    fee DECIMAL(10,2),    FOREIGN KEY (Sno) REFERENCES Student_Master(Sno));
+
+Table created.
+
+SQL>  4. INSERT DATA INTO COURSE_MASTER---
+> 
+
+SQL> INSERT INTO Course_master VALUES(101, 'BCA');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES(102, 'BBA');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES(103, 'MCA');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES(104, 'B.Com');
+
+1 row created.
+
+SQL> INSERT INTO Course_master VALUES(105, 'MBA');
+
+1 row created.
+
+SQL> select * from Course_master;
+
+    C_CODE C_NAME                                                               
+---------- --------------------------------------------------                   
+       101 BCA                                                                  
+       102 BBA                                                                  
+       103 MCA                                                                  
+       104 B.Com                                                                
+       105 MBA                                                                  
+
+SQL> 
+SQL> 
+SQL>  5. INSERT DATA INTO STUDENT_MASTER-----------------
+> 
+SQL> INSERT INTO Student_Master VALUES(1, 'Rahul', 101, 'Rajkot', 25);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES(2, 'Priya', 102, 'Jamnagar', 22);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES(3, 'Amit', 101, 'Surat', 24);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES(4, 'Neha', 103, 'Ahmedabad', 26);
+
+1 row created.
+
+SQL> INSERT INTO Student_Master VALUES(5, 'Jay', 104, 'Rajkot', 28);
+
+1 row created.
+
+SQL> select * from Student_Master;
+
+       SNO SNAME                                                  C_CODE        
+---------- -------------------------------------------------- ----------        
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+         1 Rahul                                                     101        
+Rajkot                                                     25                   
+                                                                                
+         2 Priya                                                     102        
+Jamnagar                                                   22                   
+                                                                                
+         3 Amit                                                      101        
+Surat                                                      24                   
+                                                                                
+
+       SNO SNAME                                                  C_CODE        
+---------- -------------------------------------------------- ----------        
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+         4 Neha                                                      103        
+Ahmedabad                                                  26                   
+                                                                                
+         5 Jay                                                       104        
+Rajkot                                                     28                   
+                                                                                
+
+SQL>  6. INSERT DATA INTO FEE_MASTER-----------------
+> 
+
+
+SQL> INSERT INTO Fee_Master VALUES(1, 25000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES(2, 22000);
+
+1 row created.
+
+SQL> INSERT INTO Fee_Master VALUES(3, 25000);
+
+1 row created.
+
+SQL> -------------  i. Display all the students whose fees is not pay. ----------
+SQL> 
+SQL> SELECT s.Sno, s.sname, s.city, s.age
+  2  FROM Student_Master s
+  3  LEFT JOIN Fee_Master f
+  4  ON s.Sno = f.Sno
+  5  WHERE f.Sno IS NULL;
+
+       SNO SNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+         5 Jay                                                                  
+Rajkot                                                     28                   
+                                                                                
+         4 Neha                                                                 
+Ahmedabad                                                  26                   
+                                                                                
+
+SQL> --------------------  ii. List out all the students whose city either Jamnagar, Rajkot or Surat.
+
+
+SQL>   SELECT *FROM Student_Master WHERE city IN ('Jamnagar', 'Rajkot', 'Surat');
+
+       SNO SNAME                                                  C_CODE        
+---------- -------------------------------------------------- ----------        
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+         1 Rahul                                                     101        
+Rajkot                                                     25                   
+                                                                                
+         2 Priya                                                     102        
+Jamnagar                                                   22                   
+                                                                                
+         3 Amit                                                      101        
+Surat                                                      24                   
+                                                                                
+
+       SNO SNAME                                                  C_CODE        
+---------- -------------------------------------------------- ----------        
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+         5 Jay                                                       104        
+Rajkot                                                     28                   
+                                                                                
+
+SQL> ------------  iii. Display the students’ course wise.
+SQL> 
+
+SQL> SELECT c.c_name, s.Sno, s.sname, s.city, s.age FROM Student_Master s JOIN Course_master c ON s.c_code = c.C_code ORDER BY c.c_name;
+
+C_NAME                                                    SNO                   
+-------------------------------------------------- ----------                   
+SNAME                                                                           
+--------------------------------------------------                              
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+B.Com                                                       5                   
+Jay                                                                             
+Rajkot                                                     28                   
+                                                                                
+BBA                                                         2                   
+Priya                                                                           
+Jamnagar                                                   22                   
+
+C_NAME                                                    SNO                   
+-------------------------------------------------- ----------                   
+SNAME                                                                           
+--------------------------------------------------                              
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+                                                                                
+BCA                                                         3                   
+Amit                                                                            
+Surat                                                      24                   
+                                                                                
+BCA                                                         1                   
+Rahul                                                                           
+
+C_NAME                                                    SNO                   
+-------------------------------------------------- ----------                   
+SNAME                                                                           
+--------------------------------------------------                              
+CITY                                                      AGE                   
+-------------------------------------------------- ----------                   
+Rajkot                                                     25                   
+                                                                                
+MCA                                                         4                   
+Neha                                                                            
+Ahmedabad                                                  26                   
+                                                                                
+
+SQL> ---------- iv. Display all students name, course name and students age who having age greater
+SQL> than 23 and less than 27 and doing ‘BCA’.
+
+SQL> SELECT s.sname, c.c_name, s.age FROM Student_Master s JOIN Course_master c ON s.c_code = c.C_code WHERE s.age > 23 AND s.age < 27 AND c.c_name = 'BCA';
+
+SNAME                                                                           
+--------------------------------------------------                              
+C_NAME                                                    AGE                   
+-------------------------------------------------- ----------                   
+Rahul                                                                           
+BCA                                                        25                   
+                                                                                
+Amit                                                                            
+BCA                                                        24                   
+                                                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
