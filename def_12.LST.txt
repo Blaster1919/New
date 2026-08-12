@@ -1,0 +1,226 @@
+--1 create table --------
+SQL> CREATE TABLE Dept_mast (    Dept_no INT PRIMARY KEY,    Dept_name VARCHAR(50));
+
+Table created.
+ 
+SQL> CREATE TABLE Emp_mast (
+  2      Emp_no INT PRIMARY KEY,
+  3      Emp_name VARCHAR(50),
+  4      Dept_code INT,
+  5      Desi VARCHAR(50),
+  6      FOREIGN KEY (Dept_code) REFERENCES Dept_mast(Dept_no)
+  7  );
+
+Table created.
+
+SQL> CREATE TABLE Salary_mast (
+  2      Emp_no INT,
+  3      Sal DECIMAL(10,2),
+  4      HRA DECIMAL(10,2),
+  5      MA DECIMAL(10,2),
+  6      PF DECIMAL(10,2),
+  7      FOREIGN KEY (Emp_no) REFERENCES Emp_mast(Emp_no)
+  8  );
+
+Table created.
+
+
+SQL> ------- insert into dept  ------------
+SQL> 
+SQL> INSERT INTO Dept_mast VALUES(101, 'Computer');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES(102, 'Account');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES(103, 'HR');
+
+1 row created.
+
+SQL> INSERT INTO Dept_mast VALUES(104, 'Sales');
+
+1 row created.
+
+SQL> -----------  insert into emp_mast -----
+SQL> 
+SQL> INSERT INTO Emp_mast VALUES(1, 'Rahul', 101, 'Manager');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES(2, 'Amit', 102, 'Clerk');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES(3, 'Priya', 103, 'HR Executive');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES(4, 'Neha', 104, 'Sales Executive');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES(5, 'Ravi', 101, 'Programmer');
+
+1 row created.
+
+SQL> INSERT INTO Emp_mast VALUES(6, 'Kiran', 102, 'Accountant');
+
+1 row created.
+
+SQL> select * from Emp_mast;
+
+    EMP_NO EMP_NAME                                            DEPT_CODE        
+---------- -------------------------------------------------- ----------        
+DESI                                                                            
+--------------------------------------------------                              
+         1 Rahul                                                     101        
+Manager                                                                         
+                                                                                
+         2 Amit                                                      102        
+Clerk                                                                           
+                                                                                
+         3 Priya                                                     103        
+HR Executive                                                                    
+                                                                                
+
+    EMP_NO EMP_NAME                                            DEPT_CODE        
+---------- -------------------------------------------------- ----------        
+DESI                                                                            
+--------------------------------------------------                              
+         4 Neha                                                      104        
+Sales Executive                                                                 
+                                                                                
+         5 Ravi                                                      101        
+Programmer                                                                      
+                                                                                
+         6 Kiran                                                     102        
+Accountant                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> select * from Dept_mast ;
+
+   DEPT_NO DEPT_NAME                                                            
+---------- --------------------------------------------------                   
+       101 Computer                                                             
+       102 Account                                                              
+       103 HR                                                                   
+       104 Sales                                                                
+
+SQL> ----  insert into sal_mast----
+SQL> 
+SQL> INSERT INTO Salary_mast VALUES(1, 4500, 300, 200, 400);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES(2, 2500, 150, 100, 200);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES(3, 6000, 400, 300, 500);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES(4, 3500, 200, 150, 300);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES(5, 1800, 100, 80, 150);
+
+1 row created.
+
+SQL> INSERT INTO Salary_mast VALUES(6, 4200, 250, 200, 350);
+
+1 row created.
+
+  --------- i. Create a query to display all the employee name, department name and total salary i.esal
+
+
+SQL> SELECT e.Emp_name,d.Dept_name,(s.Sal + s.HRA + s.MA - s.PF) AS Total_Salary FROM Emp_mast e JOIN Dept_mast d ON e.Dept_code = d.Dept_no JOIN Salary_mast s ON e.Emp_no = s.Emp_no WHERE s.Sal > 2000 AND s.Sal < 5000;
+
+EMP_NAME                                                                        
+--------------------------------------------------                              
+DEPT_NAME                                          TOTAL_SALARY                 
+-------------------------------------------------- ------------                 
+Rahul                                                                           
+Computer                                                   4600                 
+                                                                                
+Kiran                                                                           
+Account                                                    4300                 
+                                                                                
+Amit                                                                            
+Account                                                    2550                 
+                                                                                
+
+EMP_NAME                                                                        
+--------------------------------------------------                              
+DEPT_NAME                                          TOTAL_SALARY                 
+-------------------------------------------------- ------------                 
+Neha                                                                            
+Sales                                                      3550                 
+                                                                                
+
+SQL> -------  ii. Create a update query to fill hra = 100 if a employee is having salary more than 2000 else
+SQL> fill hra = 200.
+SP2-0734: unknown command beginning "fill hra =..." - rest of line ignored.
+SQL> 
+SQL> UPDATE Salary_mast SET HRA = CASE WHEN Sal > 2000 THEN 100 ELSE 200 END;
+
+6 rows updated.
+
+SQL> SELECT * FROM Salary_mast;
+
+    EMP_NO        SAL        HRA         MA         PF                          
+---------- ---------- ---------- ---------- ----------                          
+         1       4500        100        200        400                          
+         2       2500        100        100        200                          
+         3       6000        100        300        500                          
+         4       3500        100        150        300                          
+         5       1800        200         80        150                          
+         6       4200        100        200        350                          
+
+6 rows selected.
+
+SQL> -- iii. Delete all the employee information from emp_mast who are having department
+
+
+SQL> DELETE FROM Salary_mast WHERE Emp_no IN (SELECT e.Emp_no FROM Emp_mast e JOIN Dept_mast d ON e.Dept_code = d.Dept_no WHERE d.Dept_name = 'Computer');
+
+2 rows deleted.
+
+SQL> DELETE FROM Emp_mast WHERE Dept_code IN (SELECT Dept_no FROM Dept_mast WHERE Dept_name = 'Computer');
+
+2 rows deleted.
+
+SQL> SELECT * FROM Emp_mast;
+
+    EMP_NO EMP_NAME                                            DEPT_CODE        
+---------- -------------------------------------------------- ----------        
+DESI                                                                            
+--------------------------------------------------                              
+         2 Amit                                                      102        
+Clerk                                                                           
+                                                                                
+         3 Priya                                                     103        
+HR Executive                                                                    
+                                                                                
+         4 Neha                                                      104        
+Sales Executive                                                                 
+                                                                                
+
+    EMP_NO EMP_NAME                                            DEPT_CODE        
+---------- -------------------------------------------------- ----------        
+DESI                                                                            
+--------------------------------------------------                              
+         6 Kiran                                                     102        
+Accountant                                                                      
+                                                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
