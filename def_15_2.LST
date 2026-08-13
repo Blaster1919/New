@@ -1,0 +1,256 @@
+
+
+create tabel  -----
+
+
+SQL>  CREATE TABLE Salesman_a( Sid INT PRIMARY KEY,name VARCHAR(50),city VARCHAR(50),commission DECIMAL(5,2));
+
+Table created.
+
+SQL> -- insert into tabel data
+SQL> 
+SQL> INSERT INTO Salesman  VALUES (5001, 'James', 'New York', 0.15);
+
+1 row created.
+
+SQL> INSERT INTO Salesman  VALUES(5002, 'Robert', 'Paris', 0.13);
+
+1 row created.
+
+SQL> INSERT INTO Salesman  VALUES(5003, 'John', 'New York', 0.12);
+
+1 row created.
+
+SQL> INSERT INTO Salesman  VALUES(5004, 'David', 'London', 0.14);
+
+1 row created.
+
+SQL> INSERT INTO Salesman  VALUES(5005, 'Michael', 'Paris', 0.11);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+CREATE TABLE Customer_a (C_id INT PRIMARY KEY,cname VARCHAR(50),city VARCHAR(50),grade INT,salesman_id INT);
+
+Table created.
+
+
+SQL> INSERT INTO Customer_a VALUES(1, 'Rahul', 'New York', 200, 101);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(2, 'Amit', 'London', 150, 102);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(3, 'Priya', 'New York', 120, 101);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(4, 'Neha', 'Paris', 80, 103);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(5, 'Ravi', 'London', 250, 102);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(6, 'John', 'Chicago', 100, 104);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(7, 'Sneha', 'Paris', 180, 103);
+
+1 row created.
+
+SQL> INSERT INTO Customer_a VALUES(8, 'David', 'Chicago', 90, 104);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> =============  i. Write a query to display all the information for those customers with a grade of 200.-=============
+
+SQL> SELECT * FROM Customer_a WHERE grade = 200;
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         1 Rahul                                                                
+New York                                                  200         101       
+                                                                                
+
+
+SQL> SELECT * FROM Customer_a WHERE grade > 100;
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         1 Rahul                                                                
+New York                                                  200         101       
+                                                                                
+         2 Amit                                                                 
+London                                                    150         102       
+                                                                                
+         3 Priya                                                                
+New York                                                  120         101       
+                                                                                
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         5 Ravi                                                                 
+London                                                    250         102       
+                                                                                
+         7 Sneha                                                                
+Paris                                                     180         103       
+                                                                                
+
+SQL> ======= iii. Write a query to display all customers in New York who have a grade value above
+
+
+SQL> SELECT * FROM Customer_a WHERE city = 'New York' AND grade > 100;
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         1 Rahul                                                                
+New York                                                  200         101       
+                                                                                
+         3 Priya                                                                
+New York                                                  120         101       
+                                                                                
+
+SQL> iv. Write a query to display all customers, who are either belongs to the city New York
+
+SQL> SELECT * FROM Customer_a WHERE city = 'New York' OR grade > 100;
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         1 Rahul                                                                
+New York                                                  200         101       
+                                                                                
+         2 Amit                                                                 
+London                                                    150         102       
+                                                                                
+         3 Priya                                                                
+New York                                                  120         101       
+                                                                                
+
+      C_ID CNAME                                                                
+---------- --------------------------------------------------                   
+CITY                                                    GRADE SALESMAN_ID       
+-------------------------------------------------- ---------- -----------       
+         5 Ravi                                                                 
+London                                                    250         102       
+                                                                                
+         7 Sneha                                                                
+Paris                                                     180         103       
+                                                                                
+
+SQL> ======== v. Write a query to display customer name, city and grade in such a manner that the
+
+SQL> SELECT cname, city, grade FROM Customer_a ORDER BY grade DESC;
+
+CNAME                                                                           
+--------------------------------------------------                              
+CITY                                                    GRADE                   
+-------------------------------------------------- ----------                   
+Ravi                                                                            
+London                                                    250                   
+                                                                                
+Rahul                                                                           
+New York                                                  200                   
+                                                                                
+Sneha                                                                           
+Paris                                                     180                   
+                                                                                
+
+CNAME                                                                           
+--------------------------------------------------                              
+CITY                                                    GRADE                   
+-------------------------------------------------- ----------                   
+Amit                                                                            
+London                                                    150                   
+                                                                                
+Priya                                                                           
+New York                                                  120                   
+                                                                                
+John                                                                            
+Chicago                                                   100                   
+                                                                                
+
+CNAME                                                                           
+--------------------------------------------------                              
+CITY                                                    GRADE                   
+-------------------------------------------------- ----------                   
+David                                                                           
+Chicago                                                    90                   
+                                                                                
+Neha                                                                            
+Paris                                                      80                   
+                                                                                
+
+8 rows selected.
+
+SQL> ==============   vi ===================
+ 
+
+SQL> SELECT C.cname AS Customer_Name,S.name AS Salesman_Name FROM Customer_a C JOIN Salesman_a S ON C.city = S.city;
+
+CUSTOMER_NAME                                                                   
+--------------------------------------------------                              
+SALESMAN_NAME                                                                   
+--------------------------------------------------                              
+Rahul                                                                           
+James                                                                           
+                                                                                
+Amit                                                                            
+Robert                                                                          
+                                                                                
+Priya                                                                           
+James                                                                           
+                                                                                
+
+CUSTOMER_NAME                                                                   
+--------------------------------------------------                              
+SALESMAN_NAME                                                                   
+--------------------------------------------------                              
+Neha                                                                            
+William                                                                         
+                                                                                
+Ravi                                                                            
+Robert                                                                          
+                                                                                
+John                                                                            
+Thomas                                                                          
+                                                                                
+
+CUSTOMER_NAME                                                                   
+--------------------------------------------------                              
+SALESMAN_NAME                                                                   
+--------------------------------------------------                              
+Sneha                                                                           
+William                                                                         
+                                                                                
+David                                                                           
+Thomas                                                                          
+                                                                                
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 

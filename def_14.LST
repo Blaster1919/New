@@ -1,0 +1,115 @@
+----- table create --
+SQL> 
+SQL> CREATE TABLE Orders (Ord_no INT PRIMARY KEY,purch_amt DECIMAL(10,2),ord_date DATE,customer_id INT,salesman_id INT);
+
+Table created.
+
+----- insert data into table----------------------
+
+
+SQL> INSERT INTO Orders VALUES(70001, 150.50,date '2026-01-10', 3005, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70002, 2450.00,date '2026-01-12', 3001, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70003, 320.75, date '2026-01-15', 3002, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70004, 1250.00,date  '2026-01-18', 3009, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70005, 560.25, date '2026-01-20', 3007, 5002);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70006, 890.00,date  '2026-01-22', 3005, 5001);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70007, 1500.50,date  '2026-01-25', 3008, 5003);
+
+1 row created.
+
+SQL> INSERT INTO Orders VALUES(70008, 750.00, date '2026-01-28', 3002, 5001);
+
+1 row created.
+
+SQL> select * from  Orders;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70001      150.5 10-JAN-26        3005        5001                         
+     70002       2450 12-JAN-26        3001        5002                         
+     70003     320.75 15-JAN-26        3002        5001                         
+     70004       1250 18-JAN-26        3009        5003                         
+     70005     560.25 20-JAN-26        3007        5002                         
+     70006        890 22-JAN-26        3005        5001                         
+     70007     1500.5 25-JAN-26        3008        5003                         
+     70008        750 28-JAN-26        3002        5001                         
+
+8 rows selected.
+
+SQL> ---  i. Write a query to display the columns in a specific order like order date, salesman id,
+
+ORD_DATE  SALESMAN_ID     ORD_NO  PURCH_AMT                                     
+--------- ----------- ---------- ----------                                     
+10-JAN-26        5001      70001      150.5                                     
+12-JAN-26        5002      70002       2450                                     
+15-JAN-26        5001      70003     320.75                                     
+18-JAN-26        5003      70004       1250                                     
+20-JAN-26        5002      70005     560.25                                     
+22-JAN-26        5001      70006        890                                     
+25-JAN-26        5003      70007     1500.5                                     
+28-JAN-26        5001      70008        750                                     
+
+8 rows selected.
+
+SQL> ---  ii. Write a query which will retrieve the value of salesman id of all salesman getting
+
+
+SALESMAN_ID                                                                     
+-----------                                                                     
+       5003                                                                     
+       5001                                                                     
+       5002                                                                     
+
+SQL> 
+SQL> 
+SQL> -- iii. Write a SQL query to display the order number followed by order date and the
+
+SQL> SELECT ord_no, ord_date, purch_amt FROM Orders WHERE salesman_id = 5001;
+
+    ORD_NO ORD_DATE   PURCH_AMT                                                 
+---------- --------- ----------                                                 
+     70001 10-JAN-26      150.5                                                 
+     70003 15-JAN-26     320.75                                                 
+     70006 22-JAN-26        890                                                 
+     70008 28-JAN-26        750                                                 
+
+SQL> ------- iv. Write a query to display the orders according to the order number arranged by
+
+SQL> SELECT * FROM Orders ORDER BY ord_no ASC;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70001      150.5 10-JAN-26        3005        5001                         
+     70002       2450 12-JAN-26        3001        5002                         
+     70003     320.75 15-JAN-26        3002        5001                         
+     70004       1250 18-JAN-26        3009        5003                         
+     70005     560.25 20-JAN-26        3007        5002                         
+     70006        890 22-JAN-26        3005        5001                         
+     70007     1500.5 25-JAN-26        3008        5003                         
+     70008        750 28-JAN-26        3002        5001                         
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
