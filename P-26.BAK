@@ -1,0 +1,37 @@
+// nesting of member function
+#include<conio.h>
+#include<iostream.h>
+class demo
+{
+  int a;
+  float b;
+  char c;
+  void get();
+  public:
+       void put()
+       {
+	   get();
+	cout<<"\n a="<<a;
+	cout<<"\n b="<<b;
+	cout<<"\n c="<<c;
+}
+void demo :: get()
+{
+   cout<<"\nEnter an int,a float and a char:";
+   cin>>a>>b>>c;
+}
+void main()
+{
+   demo d1;
+   clrscr();
+ //  d1.get();
+   d1.put();
+   getch();
+}
+
+
+
+
+
+
+

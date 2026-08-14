@@ -1,0 +1,39 @@
+//static member function
+#include<iostream.h>
+#include<conio.h>
+class A
+{
+   int a;
+   static int b;
+   public:
+	 void get()
+	 {
+	    cout<<"\n Enter A:";
+	    cin>>a;
+	    b++;
+	 }
+	 void put()
+	 {
+	    cout<<"\nA="<<a<<"\tB="<<b;
+	 }
+	 static void disp()
+	 {
+	     //cout<<"\n A="<<a;
+	     cout<<"\nB="<<b;
+	 }
+};
+int A :: b;
+void main()
+{
+   A a1,a2,a3;
+   clrscr();
+   a1.get();    // 10    11
+   a1.put();
+   a2.get();    // 20    12
+   a2.put();
+   a1.disp();
+   a3.get();    // 30    13
+   a3.put();
+   a1.put();    // 10     13
+   getch();
+}
